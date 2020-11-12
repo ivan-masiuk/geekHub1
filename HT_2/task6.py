@@ -12,7 +12,7 @@ def potiziavPoKlavi (x):
         ctNumber = 0
         ctStr = 0
         for obj1 in x:  
-          if obj1 in ['0','1','2','3','4','5','6','7','8','9']:
+          if obj1.isdigit():
             ctNumber +=1
           else:
             ctStr +=1   
@@ -24,7 +24,7 @@ def potiziavPoKlavi (x):
         ctNumber = 0
         newStr = ''
         for obj1 in x:  
-          if obj1 in ['0','1','2','3','4','5','6','7','8','9']:
+          if obj1.isdigit():
             ctNumber +=1
           else:
             newStr += obj1
