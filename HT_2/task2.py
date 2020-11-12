@@ -6,9 +6,8 @@ vYears = []
 
 for i in range(startYear, endYear+1):
     if (i%400==0 or (i%4==0 and i%100!=0 )):
-        vYears.append(i)
+        vYears.append(str(i))
 # print(vYears)   список років (тип список)
 
-# гарний output, як прибрати останню кому у ньому..?
-for obj in vYears:
-    print(obj, ', ', end='')
+# гарний output
+print(', '.join(vYears))
