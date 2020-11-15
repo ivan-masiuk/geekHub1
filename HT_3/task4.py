@@ -9,18 +9,16 @@ h = int(input())
 
 def is_prime(n):
     if n < 2:
-        q = False
-        quit()
+        return(False)
     elif n == 2:
-        q = True
+        return(True)
         quit()
     i = 2
     while i <= (n ** 0.5):
         if n % i == 0:
-            q = False
-            quit()
+            return(False)
         i += 1
-    q = True
+    return(True)
     # print(q)
     return(q)
 
