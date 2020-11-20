@@ -3,7 +3,6 @@
 f = int(input())
 h = int(input())
 
-
 def is_prime(n):
     if n < 2:
         return(False)
@@ -16,8 +15,7 @@ def is_prime(n):
             return(False)
         i += 1
     return(True)
-    # print(q)
-    return(q)
+
 
 
 def prime_list(a,b):
