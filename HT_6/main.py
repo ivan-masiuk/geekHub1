@@ -20,7 +20,7 @@ def restart():
     # add banknotes.data
     banknotes_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'banknotes.data')
     write_file = open(banknotes_data, 'w')
-    banknotes = {'500':100, '200':100, '100':100, '50':100}
+    banknotes = {'500':100, '200':100, '100':100, '50':100, '20':100}
     json.dump(banknotes, write_file)
     write_file.close()
     # create <name>_balance.data
@@ -118,7 +118,13 @@ def getMoney(user_name):
         desire -= 200 * counter200
         counter100 = desire//100
         desire -= 100 * counter100
-        counter50 = desire//50
+        if (desire - 50) % 20 == 0:
+            counter50 = desire//50
+            desire -= 50
+            counter20 = a // 20
+        else:
+            counter50 = 0
+            counter20 = a // 20
         transaction_text = f'GOT maney: {desire1}'
         # balance.data update
         write_file = open(balance_data, 'w')
@@ -133,7 +139,7 @@ def getMoney(user_name):
         write_file = open(transaction_data, 'w')
         json.dump(transactions_list, write_file)
         write_file.close()
-        print(f'Get money: {desire1} UAH!\nBanknotes: 500 UAH x {counter500}, 200 UAH x {counter200}, 100 UAH x {counter100}, 50 UAH x {counter50}')
+        print(f'Get money: {desire1} UAH!\nBanknotes: 500 UAH x {counter500}, 200 UAH x {counter200}, 100 UAH x {counter100}, 50 UAH x {counter50}, 20 UAH x {counter20}')
     else:
         print('Not enought money!')
     start()
