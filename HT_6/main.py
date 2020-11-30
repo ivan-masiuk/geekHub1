@@ -194,12 +194,28 @@ def topUpBanknotes():
     print('Success!')
     start()
 
-# start function
+# check banknotes balance function
+def checkBanknotesBalance():
+    banknotes_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'banknotes.data')
+    read_file = open(banknotes_data, 'r')
+    banknotes = json.load(read_file)
+    read_file.close()
+    money = 0
+    print('')
+    for banknote in banknotes:
+        print(f'{banknote} UAH x', banknotes[banknote])
+        money += int(banknote) * banknotes[banknote]
+    print('Money in cashbox: ', money, ' UAH')
+    start()
+
+
 a = autoriationUser()
 status, name = a[0], a[1]
+
+# start function
 def start(user_name = name, user_status = status):
     if user_name == 'admin' and user_status:
-        desire = int(input('\nAdmin menu:\nPrint 0 for EXIT\nPrint 1 for TOP UP BANKNOTES\nPrint 2 for RESTART DATAS\nPrint 3 for ADD NEW USER(S)\n'))
+        desire = int(input('\nAdmin menu:\nPrint 0 for EXIT\nPrint 1 for TOP UP BANKNOTES\nPrint 2 for RESTART DATAS\nPrint 3 for ADD NEW USER(S)\nPrint 4 for CHECK BANKNOTES BALANCE\n'))
         if desire == 1:
             topUpBanknotes()
         elif desire == 0:
@@ -208,6 +224,8 @@ def start(user_name = name, user_status = status):
             restart()
         elif desire == 3:
             addUser()
+        elif desire == 4:
+            checkBanknotesBalance()
         else:
             print('Try again')
             start
