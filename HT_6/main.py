@@ -14,47 +14,41 @@ def restart():
         'admin':'admin'
     }
     users_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),'users.data')
-    write_file = open(users_data, 'w')
-    json.dump(users, write_file)
-    write_file.close()
+    with open(users_data, 'w') as write_file:
+        json.dump(users, write_file)
     # add banknotes.data
     banknotes_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'banknotes.data')
-    write_file = open(banknotes_data, 'w')
-    banknotes = {'500':100, '200':100, '100':100, '50':100, '20':100}
-    json.dump(banknotes, write_file)
-    write_file.close()
+    with open(banknotes_data, 'w') as write_file:
+        banknotes = {'500':100, '200':100, '100':100, '50':100, '20':100}
+        json.dump(banknotes, write_file)
     # create <name>_balance.data
     for user in users:
         balance_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user}_balance.data')
-        write_file = open(balance_data, 'w')
-        start_balance = 1000
-        json.dump(start_balance, write_file)
-        write_file.close()
+        with open(balance_data, 'w') as write_file:
+            start_balance = 1000
+            json.dump(start_balance, write_file)
     # create <name>_transactions.data
     for user in users:
         transactions_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user}_transactions.data')
-        write_file = open(transactions_data, 'w')
-        start_transactions = []
-        json.dump(start_transactions, write_file)
-        write_file.close()
-    start()
+        with open(transactions_data, 'w') as write_file:
+            start_transactions = []
+            json.dump(start_transactions, write_file)
+    # start()
 
 # add new user function
 def addUser():
     users_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),'users.data')
-    write_file = open(users_data, 'r')
-    users = json.load(write_file)
-    amount = int(input('Print amount of new users please: '))
-    new_users = {} #dict of new users (that will be added)
-    for _ in range(amount):
-        new_users_name = input(f'Print new user*s name #{_ + 1}: ')
-        new_users_password = input(f'Print new user*s password #{_ + 1}: ')
-        users[new_users_name] = new_users_password
-        new_users [new_users_name] = new_users_password
-    write_file.close()
-    write_file = open(users_data, 'w')
-    json.dump(users, write_file)
-    write_file.close()
+    with open(users_data, 'r') as write_file:
+        users = json.load(write_file)
+        amount = int(input('Print amount of new users please: '))
+        new_users = {} #dict of new users (that will be added)
+        for _ in range(amount):
+            new_users_name = input(f'Print new user*s name #{_ + 1}: ')
+            new_users_password = input(f'Print new user*s password #{_ + 1}: ')
+            users[new_users_name] = new_users_password
+            new_users [new_users_name] = new_users_password
+    with open(users_data, 'w') as write_file:
+        json.dump(users, write_file)
     # pretty print
     print('You added: ', end='')
     for user in new_users:
@@ -63,18 +57,16 @@ def addUser():
     # create NEW <name>_balance.data
     for user in new_users:
         balance_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user}_balance.data')
-        write_file = open(balance_data, 'w')
-        start_balance = 1000
-        json.dump(start_balance, write_file)
-        write_file.close()
+        with open(balance_datam, 'w') as write_file:
+            start_balance = 1000
+            json.dump(start_balance, write_file)
     # create NEW <name>_transactions.data
     for user in new_users:
         transactions_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user}_transactions.data')
-        write_file = open(transactions_data, 'w')
-        start_transactions = []
-        json.dump(start_transactions, write_file)
-        write_file.close()
-    start()
+        with open(transactions_data, 'w') as write_file:
+            start_transactions = []
+            json.dump(start_transactions, write_file)
+    # start()
 
 # autoriation user in system
 def autoriationUser():
@@ -98,16 +90,15 @@ def autoriationUser():
         else:
             print(f'Any users with {user_name} name.')
     return(status_user, user_name)
-    start()
+    # start()
 
 
 # get money function
 def getMoney(user_name):
     desire = int(input('Print amount of money: '))
     balance_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_balance.data')
-    read_file = open(balance_data, 'r')
-    users_balace = json.load(read_file)
-    read_file.close()
+    with open(balance_data, 'r') as read_file:
+        users_balace = json.load(read_file)
     if desire <= users_balace:
         new_users_balace = users_balace - desire
         desire1 = desire
@@ -127,22 +118,19 @@ def getMoney(user_name):
             counter20 = a // 20
         transaction_text = f'GOT maney: {desire1}'
         # balance.data update
-        write_file = open(balance_data, 'w')
-        json.dump(new_users_balace, write_file)
-        write_file.close()
+        with open(balance_data, 'w') as write_file:
+            json.dump(new_users_balace, write_file)
         # transaction.data update
         transaction_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_transactions.data')
-        read_file = open(transaction_data, 'r')
-        transactions_list = json.load(read_file)
-        read_file.close()
+        with open(transaction_data, 'r') as read_file:
+            transactions_list = json.load(read_file)
         transactions_list.append(transaction_text)
-        write_file = open(transaction_data, 'w')
-        json.dump(transactions_list, write_file)
-        write_file.close()
+        with open(transaction_data, 'w') as write_file:
+            json.dump(transactions_list, write_file)
         print(f'Get money: {desire1} UAH!\nBanknotes: 500 UAH x {counter500}, 200 UAH x {counter200}, 100 UAH x {counter100}, 50 UAH x {counter50}, 20 UAH x {counter20}')
     else:
         print('Not enought money!')
-    start()
+    # start()
 
 # top up balance function
 def topUpBalance(user_name):
@@ -150,98 +138,100 @@ def topUpBalance(user_name):
     transaction_text = f'TOP UP balance: {desire}'
     # get start balance
     balance_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_balance.data')
-    read_file = open(balance_data, 'r')
-    users_balace = json.load(read_file)
-    read_file.close()
+    with open(balance_data, 'r') as read_file:
+        users_balace = json.load(read_file)
     users_balace += desire
     # update balance
     balance_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_balance.data')
-    write_file = open(balance_data, 'w')
-    json.dump(users_balace, write_file)
-    write_file.close()
+    with open(balance_data, 'w') as write_file:
+        json.dump(users_balace, write_file)
     # add transaction
     transaction_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_transactions.data')
-    read_file = open (transaction_data, 'r')
-    transactions_list = json.load(read_file)
-    read_file.close()
-    write_file = open(transaction_data, 'w')
-    transactions_list.append(transaction_text)
-    json.dump(transactions_list, write_file)
-    write_file.close()
+    with open (transaction_data, 'r') as read_file:
+        transactions_list = json.load(read_file)
+    with open(transaction_data, 'w') as write_file:
+        transactions_list.append(transaction_text)
+        json.dump(transactions_list, write_file)
     print(f'You have replenished the balance by {desire} UAH\n')
-    start()
+    # start()
 
 # check balance function
 def checkBalance(user_name):
     balance_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_balance.data')
-    read_file = open (balance_data, 'r')
-    balance = json.load(read_file)
+    with open (balance_data, 'r') as read_file:
+        balance = json.load(read_file)
     print('Your balance: ', balance, 'UAH')
-    start()
+    # start()
 
 # top up banknotes function
 def topUpBanknotes():
     banknotes_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'banknotes.data')
-    read_file = open(banknotes_data, 'r')
-    banknotes = json.load(read_file)
-    read_file.close()
+    with open(banknotes_data, 'r') as read_file:
+        banknotes = json.load(read_file)
     for banknote in banknotes:
         count = int(input(f'How much {banknote} banknotes would you add? '))
         banknotes[banknote] = banknotes[banknote] + count
-    write_file = open(banknotes_data, 'w')
-    json.dump(banknotes, write_file)
-    write_file.close()
+    with open(banknotes_data, 'w') as write_file:
+        json.dump(banknotes, write_file)
     print('Success!')
-    start()
+    # start()
 
 # check banknotes balance function
 def checkBanknotesBalance():
     banknotes_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'banknotes.data')
-    read_file = open(banknotes_data, 'r')
-    banknotes = json.load(read_file)
-    read_file.close()
+    with open(banknotes_data, 'r') as read_file:
+        banknotes = json.load(read_file)
     money = 0
     print('')
     for banknote in banknotes:
         print(f'{banknote} UAH x', banknotes[banknote])
         money += int(banknote) * banknotes[banknote]
     print('Money in cashbox: ', money, ' UAH')
-    start()
+    # start()
 
+# Сheck for required files
+def checkRequiredFilse():
+    users_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users.data')
+    status = os.path.isfile(users_data)
+    if status == False:
+        restart()
+    return(status)
 
-a = autoriationUser()
-status, name = a[0], a[1]
 
 # start function
-def start(user_name = name, user_status = status):
+def start():
+    checkRequiredFilse()
+    user_status, user_name = autoriationUser()
     if user_name == 'admin' and user_status:
-        desire = int(input('\nAdmin menu:\nPrint 0 for EXIT\nPrint 1 for TOP UP BANKNOTES\nPrint 2 for RESTART DATAS\nPrint 3 for ADD NEW USER(S)\nPrint 4 for CHECK BANKNOTES BALANCE\n'))
-        if desire == 1:
-            topUpBanknotes()
-        elif desire == 0:
-            quit
-        elif desire == 2:
-            restart()
-        elif desire == 3:
-            addUser()
-        elif desire == 4:
-            checkBanknotesBalance()
-        else:
-            print('Try again')
-            start
-    else:
-        if user_status:
-            desire = int(input('\nMenu:\nPrint 0 for EXIT\nPrint 1 for CHECK BALANCE\nPrint 2 for GET CASH\nPrint 3 for TOP UP BALANCE\n'))
+        while True:
+            desire = int(input('\nAdmin menu:\nPrint 0 for EXIT\nPrint 1 for TOP UP BANKNOTES\nPrint 2 for RESTART DATAS\nPrint 3 for ADD NEW USER(S)\nPrint 4 for CHECK BANKNOTES BALANCE\n'))
             if desire == 1:
-                checkBalance(user_name)
-            elif desire == 2:
-                getMoney(user_name)
-            elif desire == 3:
-                topUpBalance(user_name)
+                topUpBanknotes()
             elif desire == 0:
-                quit
+                break
+            elif desire == 2:
+                restart()
+            elif desire == 3:
+                addUser()
+            elif desire == 4:
+                checkBanknotesBalance()
             else:
                 print('Try again')
-                start()
+                break
+    else:
+        if user_status:
+            while True:
+                desire = int(input('\nMenu:\nPrint 0 for EXIT\nPrint 1 for CHECK BALANCE\nPrint 2 for GET CASH\nPrint 3 for TOP UP BALANCE\n'))
+                if desire == 1:
+                    checkBalance(user_name)
+                elif desire == 2:
+                    getMoney(user_name)
+                elif desire == 3:
+                    topUpBalance(user_name)
+                elif desire == 0:
+                    break
+                else:
+                    print('Try again')
+                    break
 
 start()
