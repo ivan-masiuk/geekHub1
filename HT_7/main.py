@@ -17,14 +17,14 @@ def restart():
     del_file_list = [ f for f in os.listdir(os.path.dirname(os.path.abspath(__file__))) if f.endswith(".json") ]
     for f in del_file_list:
         os.remove(os.path.join(os.path.dirname(os.path.abspath(__file__)), f))            
-    # create users.data
+    # create users.csv
     users = {
         'Ivan': '1',
         'Misha': '2',
         'admin':'admin'
     }
     users_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),'users.csv')
-    with open(users_data, 'w') as write_file:
+    with open(users_data, 'w', newline='') as write_file:
         writer = csv.writer(write_file, delimiter = ';')
         writer.writerow(['Name_user','Password_user'])
         for user in users:
@@ -43,7 +43,7 @@ def restart():
     # create <name>_transactions.csv
     for user in users:
         transactions_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user}_transactions.csv')
-        with open(transactions_data, 'w') as write_file:
+        with open(transactions_data, 'w', newline='') as write_file:
             writer = csv.writer(write_file, delimiter = ';')
             writer.writerow(['Transaction','Amount'])            
 
@@ -62,7 +62,7 @@ def addUser():
         new_users_password = input(f'Print new user*s password #{_ + 1}: ')
         users[new_users_name] = new_users_password
         new_users [new_users_name] = new_users_password
-    with open(users_data, 'w') as write_file:
+    with open(users_data, 'w', newline='') as write_file:
         writer = csv.writer(write_file, delimiter = ';')
         writer.writerow(['Name_user','Password_user'])
         for user in users:
@@ -81,7 +81,7 @@ def addUser():
     # create NEW <name>_transactions.data
     for user in new_users:
         transactions_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user}_transactions.csv')
-        with open(transactions_data, 'w') as write_file:
+        with open(transactions_data, 'w', newline='') as write_file:
             writer = csv.writer(write_file, delimiter = ';')
             writer.writerow(['Transaction','Amount'])
 
@@ -140,7 +140,7 @@ def getMoney(user_name):
             json.dump(new_users_balace, write_file)
         # transaction.data update
         transaction_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_transactions.csv')
-        with open(transaction_data, 'a') as write_file:
+        with open(transaction_data, 'a', newline='') as write_file:
             writer = csv.writer(write_file, delimiter = ';')
             writer.writerow(['GOT maney',f'{desire1}'])
         print(f'Get money: {desire1} UAH!\nBanknotes: 500 UAH x {counter500}, 200 UAH x {counter200}, 100 UAH x {counter100}, 50 UAH x {counter50}, 20 UAH x {counter20}')
@@ -162,7 +162,7 @@ def topUpBalance(user_name):
         json.dump(users_balace, write_file)
     # add transaction
     transaction_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_transactions.csv')
-    with open(transaction_data, 'a') as write_file:
+    with open(transaction_data, 'a', newline='') as write_file:
         writer = csv.writer(write_file, delimiter = ';')
         writer.writerow(['TOP UP balance',f'{desire}'])
     print(f'You have replenished the balance by {desire} UAH\n')
@@ -220,7 +220,7 @@ def randomBonus(user_name):
             json.dump(users_balace, write_file)
         # add transaction
         transaction_data = os.path.join(os.path.dirname(os.path.abspath(__file__)), f'{user_name}_transactions.csv')
-        with open(transaction_data, 'a') as write_file:
+        with open(transaction_data, 'a', newline='') as write_file:
             writer = csv.writer(write_file, delimiter = ';')
             writer.writerow(['BONUS',f'{100}'])
         print('Good news! You win 100 UAH!')
